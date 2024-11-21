@@ -18,7 +18,17 @@
         <version>3.2.3</version>
       </plugin>
     </plugins>
-  
-
   </build>
+  
+    <dependencies>
+    <!-- 서블릿 의존성 추가 -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- 추가된 의존성들 -->
+  </dependencies>
+  
 </project>
