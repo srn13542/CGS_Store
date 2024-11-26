@@ -16,11 +16,12 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         response.getWriter().println("jsp 호출 성공!");
         // 여기에 실제 인증 로직 추가 (예: 데이터베이스 확인)
-        if (true) { //일단 ture로 해놓음 수정필요
+        if (username.equals("1234") && password.equals("1234")) {
             request.getSession().setAttribute("username", username);
             response.sendRedirect("main.jsp");
         } else {
             response.sendRedirect("login.jsp?error=1");
         }
+
     }
 }
