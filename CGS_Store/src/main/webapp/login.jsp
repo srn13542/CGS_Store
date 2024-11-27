@@ -21,7 +21,7 @@
 		<form action="main.jsp" method="get">
 			<button type="submit">Go to Main Page</button>
 		</form>
-
+		
 	</form>
 </body>
 </html>
