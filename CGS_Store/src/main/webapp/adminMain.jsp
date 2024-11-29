@@ -184,7 +184,7 @@
         <ul>
             <li>그룹 관리
                 <ul>
-                    <li><a href="admin/AdminServlet?action=group-register">그룹 등록</a></li>
+                    <div><a href="admin/AdminServlet?action=group-register"><li>그룹 등록</li></a></div>
                     <li><a href="admin/AdminServlet?action=group-modify">그룹 수정</a></li>
                     <li><a href="admin/AdminServlet?action=group-delete">그룹 삭제</a></li>
                 </ul>
