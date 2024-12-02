@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div class ="loginFormClass">
 	<h2>Login</h2>
 	<!-- 제목구역 -->
 	<form action="login" method="post">
@@ -21,7 +22,18 @@
 		<form action="main.jsp" method="get">
 			<button type="submit">Go to Main Page</button>
 		</form>
-		
 	</form>
+	</div>
 </body>
+<style>
+  .loginFormClass{
+    height: 80vh;
+    width: 30vw;
+    backgroud-color: gray;
+    position: absolute;
+    left:50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
 </html>

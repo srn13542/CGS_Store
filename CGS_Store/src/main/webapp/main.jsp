@@ -143,7 +143,9 @@
             </div>
 
 			<div class="carousel-button">
+			<a href="joinChatRoom.jsp" style="color:white; text-decoration: none;">
             	<button>학습 시작하기</button>
+            	</a>
         	</div>
         	
             <!-- Controls -->
