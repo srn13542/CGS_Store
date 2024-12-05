@@ -48,7 +48,7 @@
 
 </head>
 <body>
-	<div class ="loginFormClass">
+	<div class ="loginFormClass" >
 	<h2><b>로그인</b><button class="backwardBtn">x</button></h2><br />
 	<!-- 제목구역 -->
 	<form action="login" method="post">
