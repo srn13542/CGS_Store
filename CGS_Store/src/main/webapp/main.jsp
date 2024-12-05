@@ -56,7 +56,6 @@ body {
 
 .container {
 	text-align: center;
-    padding: 0; /* 내부 여백 제거 */
     height: 100%; /* 화면 전체를 채우도록 설정 */
     background: none; /* 배경색 제거 */
 }
