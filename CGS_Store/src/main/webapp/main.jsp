@@ -17,6 +17,7 @@
 	crossorigin="anonymous"></script>
 <link rel="icon" href="/CGS_Store/images/favicon.ico"
 	type="image/x-icon">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <title>프로젝트 소개</title>
 <style>
 body {
@@ -126,8 +127,8 @@ body {
 	String username = (String) session.getAttribute("username");
 	%>
 	<div class="navbar">
-		<h1>어떡하징 뭐라하징?</h1>
-		<button class="sign">
+		<h1><a href="main.jsp" style="color: white; text-decoration: none;">어떡하징 뭐라하징?</a></h1>
+		<button class="sign" data-bs-toggle="modal" data-bs-target="#loginModal">
 			<%
 			if (username != null) {
 			%>
@@ -137,12 +138,46 @@ body {
 			} else {
 			%>
 			<!-- 로그인 버튼 -->
-			<a href="joinChatRoom.jsp" style="color: white; text-decoration: none;">Sign in</a>
+			<a style="color: white; text-decoration: none;">Sign in</a>
 			<%
 			}
 			%>
 		</button>
 	</div>
+	
+	<!-- 로그인 모달 -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="loginContent">
+                    <!-- login.jsp 내용이 여기에 로드됩니다 -->
+                    <p>로그인 창을 불러오는 중...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 모달이 열릴 때 login.jsp를 로드
+    document.getElementById('loginModal').addEventListener('show.bs.modal', function () {
+        const loginContent = document.getElementById('loginContent');
+        $.ajax({
+            url: "login.jsp", // login.jsp 파일 경로
+            method: "GET",
+            success: function(data) {
+                loginContent.innerHTML = data; // 모달 내용에 login.jsp 로드
+            },
+            error: function() {
+                loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
+            }
+        });
+    });
+    </script>
+    
 	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-bs-ride="carousel"
 			data-bs-interval="3000">
