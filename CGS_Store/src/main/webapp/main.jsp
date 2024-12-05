@@ -137,7 +137,7 @@ body {
 			} else {
 			%>
 			<!-- 로그인 버튼 -->
-			<a href="joinChatRoom.jsp" style="color: white; text-decoration: none;">Sign in</a>
+			<a href="login.jsp" style="color: white; text-decoration: none;">Sign in</a>
 			<%
 			}
 			%>

@@ -16,38 +16,58 @@
 	crossorigin="anonymous"></script>
 <link rel="icon" href="/CGS_Store/images/favicon.ico"
 	type="image/x-icon">
-<title>Insert title here</title>
+<!-- <title>Insert title here</title> -->
 
-
-</head>
-<body>
-	<div class ="loginFormClass">
-	<h2>Login</h2>
-	<!-- 제목구역 -->
-	<form action="login" method="post">
-		<!-- 로그인 서블릿 사용하여 페이지 이동 -->
-		<label for="username">Username:</label>
-		<!-- 이름 뒤에 적을 수 있는 input 타입을 넣음 -->
-		<input type="text" id="username" name="username"><br>
-		<br> <label for="password">Password:</label> <input
-			type="password" id="password" name="password"><br>
-		<br> <input type="submit" value="Login"> <a
-			href="main.jsp">Go to Main Page</a>
-		<form action="main.jsp" method="get">
-			<button type="submit">Go to Main Page</button>
-		</form>
-	</form>
-	</div>
-</body>
 <style>
   .loginFormClass{
-    height: 80vh;
-    width: 30vw;
-    backgroud-color: gray;
+    height: 700px;
+    width: 400px;
+    background-color: #EBEBEB;
     position: absolute;
     left:50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    padding: 30px;
+    border-radius: 16px;
+    margin:10px;
+  }
+  .backwardBtn{
+   
+  }
+  .loginViewBtn{
+    height:50px;
+    width:340px;
+    margin: 0 0 20px 0;
+    border: 0;
+    font-size: 20px;
+  }
+  #didYouMissingTxt{
+  
   }
 </style>
+
+</head>
+<body>
+	<div class ="loginFormClass">
+	<h2><b>로그인</b><button class="backwardBtn">x</button></h2><br />
+	<!-- 제목구역 -->
+	<form action="login" method="post">
+		<!-- 로그인 서블릿 사용하여 페이지 이동 -->
+		<div>
+		<label for="username" class ="minifont">Username:</label>
+		<!-- 이름 뒤에 적을 수 있는 input 타입을 넣음 -->
+		<input type="text" id="username" name="username">
+		</div><br>
+		<div><label for="password" class="minifont">Password:</label> <input
+			type="password" id="password" name="password"></div><br>
+			<hr /><br>
+		    <button type="submit" value="로그인" class="loginViewBtn">로그인</button>
+		<form action="main.jsp" method="get">
+			<button class="loginViewBtn">처음 오셨나요?</button> <br />
+			<a href="missingPswd.jsp" id="didYouMissingTxt">비밀번호를 잊어버리셨나요?</a>
+		</form>
+	</form>
+	</div>
+</body>
+
 </html>

@@ -140,6 +140,8 @@ body {
 .rename-icon:hover {
 	transform: scale(1.2);
 }
+
+
 </style>
 </head>
 <body>
@@ -248,9 +250,7 @@ body {
         // Append sorted chats back to the list
         chats.forEach(chat => chatList.appendChild(chat));
     }
-    </script>
 
-	<script>
     function renameChat(chatId) {
         const chatItem = document.getElementById(`chat-${chatId}`);
         const chatNameElement = chatItem.querySelector('.chat-name');
