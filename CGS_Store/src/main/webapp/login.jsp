@@ -42,7 +42,7 @@
     font-size: 20px;
   }
   #didYouMissingTxt{
-  
+    
   }
 </style>
 
