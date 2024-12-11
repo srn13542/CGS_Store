@@ -6,36 +6,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Room</title>
-
 </head>
 <body>
-  <div class ="chatRoom">
-    
+  <div class="chatRoom">
     <h2><button class="backwardBtn">◀</button>Chat Room: <%= session.getAttribute("chatRoom") %></h2>
     <div id="chatBox">
         <%
             List<String> messages = (List<String>) session.getAttribute("messages");
             if (messages != null) {
                 for (String message : messages) {
-                    out.println("<p>" + message + "</p>");
+                    out.println(message);
                 }
             }
         %>
-        <p class="AISend">예시 텍스트</p>
-        <p class="UserSend">예시 텍스트2</p>
-        <p class="AISend">긴 내용은 이렇게에에<br/><br/>잘되나나나ㅏ나나나나
-        ㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
-        <p class="AISend">긴 내용은 이렇게에에<br/><br/>잘되나나나ㅏ나나나나
-        ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ</p>
     </div>
     <form action="sendMessage" method="post" class="sendMessage">
-        <input type="text" name="message" id="txtInputBar">
+        <input type="text" name="message" id="txtInputBar" placeholder="Type your message here">
         <input type="submit" value="Send" id="txtSendBtn">
     </form>
-</div>
+  </div>
 </body>
 
-    <style>
+<style>
     * {
         margin: 0;
         padding: 0;
@@ -68,7 +60,6 @@
         font-size: 1.5em;
         margin-bottom: 15px;
         text-align: center;
-        position:flex;
     }
     #chatBox {
         width: 100%;
@@ -87,16 +78,16 @@
         margin: 5px 0;
         color: #333;
         font-size: 0.95em;
-        margin-right:40%;
+        margin-right: 40%;
     }
-    .UserSend{
+    .UserSend {
         background-color: #004E98;
         padding: 8px;
         border-radius: 5px;
         margin: 5px 0;
         color: #FFFFFF;
         font-size: 0.95em;
-        margin-left:40%;
+        margin-left: 40%;
     }
     .sendMessage {
         display: flex;
@@ -129,17 +120,15 @@
     #txtSendBtn:hover {
         background-color: #4A5F75;
     }
-    .backwardBtn{
-        position:absolute;
-        left:15px;
-        font-size:0.9em;
-        align-items:center;
-        text-align:center;
-        justify-content:center;
-        background-color:#3A6EA5;
-        border:0;
-    }
-    .backwardBtn{
+    .backwardBtn {
+        position: absolute;
+        left: 15px;
+        font-size: 0.9em;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        background-color: #3A6EA5;
+        border: 0;
         cursor: pointer;
     }
 </style>

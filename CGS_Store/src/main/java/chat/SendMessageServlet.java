@@ -5,40 +5,88 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-/**
- * Servlet implementation class SendMessageServlet
- */
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 @WebServlet("/sendMessage")
 public class SendMessageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = Logger.getLogger(SendMessageServlet.class.getName());
+    private static final String API_KEY = "API_key";
+    private static final String MODEL = "MODEL";
+    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String message = request.getParameter("message"); // 메세지를 가져옴
-		String chatRoom = (String) request.getSession().getAttribute("chatRoom"); // 채팅방 이름을 가져옴
-		String username = (String) request.getSession().getAttribute("username"); // 유저이름을 가져옴
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userMessage = request.getParameter("message");
 
-		if (message != null && chatRoom != null && username != null) {
-			LOGGER.log(Level.INFO, "Message from {0} in {1}: {2}", new Object[] { username, chatRoom, message });
-			List<String> messages = (List<String>) request.getSession().getAttribute("messages"); //배열에 메세지 추가
-			if (messages == null) {
-				messages = new ArrayList<>();
-			} // 새로운 메시지 추가
-			messages.add(username + ": " + message);  //메세지배열에 추가
-			request.getSession().setAttribute("messages", messages);//전송
-			response.sendRedirect("chatRoom.jsp"); //후 다시 돌아옴
-		} else {
-			response.sendRedirect("main.jsp");
-		}
-	}
+        // Retrieve or initialize session attributes
+        List<String> messages = (List<String>) request.getSession().getAttribute("messages");
+        if (messages == null) {
+            messages = new ArrayList<>();
+        }
+
+        // Add user's message to the chat
+        messages.add("<p class='UserSend'>" + userMessage + "</p>");
+
+        // Generate GPT evaluation
+        String gptResponse = generateResponse(userMessage);
+        messages.add("<p class='AISend'>" + gptResponse + "</p>");
+
+        // Save messages back to session
+        request.getSession().setAttribute("messages", messages);
+
+        // Redirect to JSP
+        response.sendRedirect("chatRoom.jsp");
+    }
+
+    private String generateResponse(String userMessage) {
+        String jsonInputString = """
+                {
+                  "model": "%s",
+                  "messages": [
+                    {
+                      "role": "system",
+                      "content": "직장 내 상황극에서 질문에 대해 답변을 평가합니다. 간단한 피드백을 제공합니다."
+                    },
+                    {
+                      "role": "user",
+                      "content": "%s"
+                    }
+                  ]
+                }
+                """.formatted(MODEL, userMessage);
+
+        try {
+            String responseContent = sendPostRequest(jsonInputString);
+            JSONObject jsonResponse = new JSONObject(responseContent);
+            JSONArray choicesArray = jsonResponse.getJSONArray("choices");
+            if (choicesArray.length() > 0) {
+                return choicesArray.getJSONObject(0).getJSONObject("message").getString("content");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "GPT 응답을 받을 수 없습니다.";
+    }
+
+    private String sendPostRequest(String jsonInputString) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL))
+                .header("Authorization", "Bearer " + API_KEY)
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(jsonInputString))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
+    }
 }
-
