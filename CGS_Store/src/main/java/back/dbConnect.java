@@ -9,7 +9,7 @@ public class dbConnect {
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/web_project_db";
     private static final String USER = "root"; // 사용자 이름
     private static final String PASSWORD = ""; // 비밀번호
-
+//s
     // DB 연결 메서드
     public static Connection connect() {
         Connection conn = null;
