@@ -9,11 +9,12 @@
 <body>
 <div class="signup-modal">
     <h2>회원가입</h2>
-    <form action="signup" method="post"> <!— 회원가입 서블릿으로 데이터 전송 —>
+    <!-- 절대 경로를 사용하여 서블릿과 정확히 연결 -->
+<form action="<%= request.getContextPath() %>/signup" method="post">
         <div class="form-group">
             <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required><br/>
             <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required><br/>
-            <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required><br/>
+			<input type="text" id="username" name="username" placeholder="이름을 입력하세요" required><br/>
         </div><br/>
         <input type="submit" value="회원가입" id="signupBtn">
     </form>
@@ -35,7 +36,7 @@
         text-align: center;
         margin: 0 auto;
     }
-    #email, #password, #name {
+    #email, #password, #username {
         width: 270px;
         padding: 10px;
         border: 1px solid #cecece;
