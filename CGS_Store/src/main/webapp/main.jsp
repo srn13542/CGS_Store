@@ -197,6 +197,8 @@ body {
 											// 모달 기본 배경 숨기기
 											document
 													.querySelector('.modal-dialog').style.background = "none";
+											document.querySelector('.modal-content').style.background="rgba(0,0,0,0)";
+											document.querySelector('.modal-content').style.border="0px solid #000000";
 										},
 										error : function() {
 											loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
