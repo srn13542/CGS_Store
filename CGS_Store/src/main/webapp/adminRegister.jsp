@@ -1,27 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>관리자 회원가입</title>
 </head>
 <body>
 <div class="signup-modal">
-    <h2>회원가입</h2>
+    <h2>관리자 회원가입</h2>
     <!-- 절대 경로를 사용하여 서블릿과 정확히 연결 -->
-<form action="<%= request.getContextPath() %>/signup" method="post">
+    <form action="<%= request.getContextPath() %>/adminSignup" method="post">
         <div class="form-group">
             <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required><br/>
             <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required><br/>
-			<input type="text" id="username" name="username" placeholder="이름을 입력하세요" required><br/>
+            <input type="text" id="username" name="username" placeholder="이름을 입력하세요" required><br/>
         </div><br/>
         <input type="submit" value="회원가입" id="signupBtn">
     </form>
     <hr/>
     <div>
-        <a href="login.jsp">
-            <button id="backToLoginBtn">로그인 화면으로 돌아가기</button>
+        <a href="index.jsp">
+            <button id="backToMainBtn">메인 화면으로 돌아가기</button>
         </a>
     </div>
 </div>
@@ -62,14 +61,14 @@
     hr {
         margin: 20px 0;
     }
-    #backToLoginBtn {
+    #backToMainBtn {
         width: 290px;
         padding: 10px;
         border: none;
         background-color: #ffffff;
         margin: 5px 0;
     }
-    #backToLoginBtn:hover {
+    #backToMainBtn:hover {
         background-color: #ececec;
     }
 </style>
