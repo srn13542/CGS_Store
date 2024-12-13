@@ -12,12 +12,15 @@
     <h2><button class="backwardBtn">◀</button>Chat Room: <%= session.getAttribute("chatRoom") %></h2>
     <div id="chatBox">
         <%
+        //messages 리스트 가져옴
             List<String> messages = (List<String>) session.getAttribute("messages");
-            if (messages != null) {
+        	List<String> gptQuestions = (List<String>) session.getAttribute("gptQuestions");
+        	if (messages != null) {
                 for (String message : messages) {
                     out.println(message);
                 }
             }
+            
         %>
     </div>
     <form action="sendMessage" method="post" class="sendMessage">
