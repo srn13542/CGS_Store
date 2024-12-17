@@ -86,10 +86,9 @@
 			<hr /><br>
 		    <button type="submit" value="로그인" class="loginViewBtn">로그인</button>
 		<!--<form action="main.jsp" method="get">-->
-			<button class="loginViewBtn" onclick="location.href='register.jsp'">처음 오셨나요?</button>
-			<a href="missingPswd.jsp" id="didYouMissingTxt">비밀번호를 잊어버리셨나요?</a>
 	</form>
+	    <button class="loginViewBtn" id="registerBtn" onclick="location.href='register.jsp'">처음 오셨나요?</button>
+		<a href="missingPswd.jsp" id="didYouMissingTxt">비밀번호를 잊어버리셨나요?</a>
 	</div>
 </body>
-
 </html>
