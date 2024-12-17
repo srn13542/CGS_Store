@@ -32,6 +32,9 @@
    border: 0px solid #000000;
    background: none;
   }
+  .backwardBtn:hover{
+   background-color:#DEDEDE;
+  }
   .loginViewBtn{
     height:50px;
     display: block;
@@ -43,11 +46,12 @@
     border-radius: 12px;
   }
   #didYouMissingTxt{
-    display: center;
+    display: flex;
+   justify-content: center;
   }
   
   .miniDiv{
-    padding:2px 10px 2px 10px;
+
   }
   
   div .minifont{
@@ -61,12 +65,13 @@
     width:100%;
     height:40px; 
   }
+  
 </style>
 
 </head>
 <body>
 	<div class ="loginFormClass" >
-	<h2><button class="backwardBtn"><i class="fa-solid fa-arrow-left"></i></button><b>  로그인</b></h2><br />
+	<h2><!--<button class="backwardBtn" value="backWard" onclick="history.go(-1);"><i class="fa-solid fa-arrow-left"></i></button>--><b>  로그인</b></h2><br />
 	<!-- 제목구역 -->
 	<form action="login" method="post">
 		<!-- 로그인 서블릿 사용하여 페이지 이동 -->
@@ -80,10 +85,9 @@
 			type="password" id="password" name="password"></div><br>
 			<hr /><br>
 		    <button type="submit" value="로그인" class="loginViewBtn">로그인</button>
-		<form action="main.jsp" method="get">
-			<button class="loginViewBtn">처음 오셨나요?</button> <br />
+		<!--<form action="main.jsp" method="get">-->
+			<button class="loginViewBtn" onclick="location.href='register.jsp'">처음 오셨나요?</button>
 			<a href="missingPswd.jsp" id="didYouMissingTxt">비밀번호를 잊어버리셨나요?</a>
-		</form>
 	</form>
 	</div>
 </body>
