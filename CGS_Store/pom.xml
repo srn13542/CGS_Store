@@ -29,6 +29,13 @@
       <scope>provided</scope>
     </dependency>
     <!-- 추가된 의존성들 -->
+    <dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>6.0.0</version> <!-- Dynamic Web Module 버전 6.0에 맞춰 사용 -->
+    <scope>provided</scope>
+</dependency>
+
   </dependencies>
   
 </project>

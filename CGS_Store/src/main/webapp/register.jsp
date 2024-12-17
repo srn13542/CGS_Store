@@ -7,6 +7,7 @@
 <title>회원가입</title>
 </head>
 <body>
+
 <div class="navbar">
 		<h1>
 			<a href="main.jsp" style="color: white; text-decoration: none;">회원가입</a>
@@ -15,6 +16,11 @@
 	
     <form action="signup" method="post"> <!— 회원가입 서블릿으로 데이터 전송 —>
         <br /><br /><br />
+
+<div class="signup-modal">
+    <h2>회원가입</h2>
+    <!-- 절대 경로를 사용하여 서블릿과 정확히 연결 -->
+    <form action="<%= request.getContextPath() %>/signup" method="post">
         <div class="form-group">
             <p class="signupP">이메일</p>
             <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required><br/>
@@ -27,7 +33,6 @@
         </div><br/>
         <input type="submit" value="회원가입" id="signupBtn">
     </form>   
-
 </body>
 
 
