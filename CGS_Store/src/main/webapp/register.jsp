@@ -17,20 +17,29 @@
     <form action="signup" method="post"> <!— 회원가입 서블릿으로 데이터 전송 —>
         <br /><br /><br />
 
-<div class="signup-modal">
-    <h2>회원가입</h2>
+<div class="signupDiv">
     <!-- 절대 경로를 사용하여 서블릿과 정확히 연결 -->
     <form action="<%= request.getContextPath() %>/signup" method="post">
         <div class="form-group">
-            <p class="signupP">이메일</p>
-            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required><br/>
-            <p class="signupP">비밀번호</p>
-            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required><br/>
-            <p class="signupP">비밀번호 확인</p>
-            <input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호를 다시 입력해주세요" required><br />
-            <p class="signupP">닉네임</p>
-            <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required><br/>
-        </div><br/>
+            <p class="signupP">닉네임 <span id="nameSpan">*</span></p>
+                <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required><br/>
+                <!-- <span class="explainSpan">만약 설명이 필요하다면 이렇게</span> -->
+                
+            <p class="signupP">이메일 <span id="emailSpan">*</span></p> 
+                <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required><br/>
+                
+            <p class="signupP">비밀번호 <span id="passwordSpan">*</span></p>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required><br/>
+                
+            <p class="signupP">비밀번호 확인 <span id="passwordCheckSpan">*</span></p>
+                <input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호를 다시 입력해주세요" required><br />
+            
+            
+            <div class="confirmDiv">
+                <!-- 시간 되면 회원가입 약관 넣고 싶음  -->
+                <!-- 시간 나면 닉네임 옆 붉은 글자를 양식에 어긋날 시 수정하도록 정리 -->
+            </div>
+        </div><br/><br />
         <input type="submit" value="회원가입" id="signupBtn">
     </form>   
 </body>
@@ -41,13 +50,12 @@
 	    margin: 0;
 	    font-family: Arial, sans-serif;
 	    background-color: #C0C0C0;
-
     }
-    #email, #password, #name {
+    #email, #password, #name, #passwordCheck {
         padding: 10px;
         border: 1px solid #cecece;
         font-size: 16px;
-        margin: 5px 0;
+        margin: 5px 0 5px 0;
         width:480px;
     }
     #signupBtn {
@@ -61,11 +69,11 @@
         color: #000000;
     }
     #signupBtn:hover {
-        background-color: #EEEEEE;
+        background-color: #DDDDDD;
     }
     h2 {
         text-align: left;
-        padding-left: 5px;
+        padding-left: 50px;
     }
     hr {
         margin: 20px 0;
@@ -109,17 +117,27 @@
 	    transform: scale(0.9); /* 버튼 크기 확대 */
 	    transition: transform 0.3s ease;
     }
-    
     form{
         text-align: center;
         margin: 0 auto;
         background-color: #EBEBEB;
         width: 600px;
         padding: 10px;
-        height: 80vh;
+        height: 90vh;
     }
     .signupP{
-        
+        text-align: left;
+        position:relative;
+        left: 50px;
+        margin: 15px 0 0 0;
+    }
+    span{
+        color: red;
+    }
+    .explainSpan{
+        color: #C0C0C0;
+        text-align: left;
+        position: relative;
     }
 </style>
 </html>
