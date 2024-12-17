@@ -137,6 +137,10 @@ body {
 .carousel-button button:hover {
 	transform: scale(0.9); /* 버튼 크기 확대 */
 }
+
+#loginModal{
+  top: 10vw;
+}
 </style>
 </head>
 <body>

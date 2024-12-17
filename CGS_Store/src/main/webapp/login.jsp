@@ -85,7 +85,9 @@
     border-radius: 12px;
   }
   #didYouMissingTxt {
-    display: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .miniDiv {
     padding: 2px 10px 2px 10px;
@@ -100,6 +102,7 @@
     width: 100%;
     height: 40px;
   }
+  
 </style>
 </head>
 <body>
@@ -116,10 +119,8 @@
       <hr /><br>
       <button type="submit" value="로그인" class="loginViewBtn">로그인</button>
     </form>
-    <form action="main.jsp" method="get">
-      <button class="loginViewBtn">처음 오셨나요?</button><br />
+      <button class="loginViewBtn" onClick="location.href='register.jsp'" >처음 오셨나요?</button>
       <a href="missingPswd.jsp" id="didYouMissingTxt">비밀번호를 잊어버리셨나요?</a>
-    </form>
   </div>
 </body>
 </html>
