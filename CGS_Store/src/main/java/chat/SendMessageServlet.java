@@ -77,7 +77,7 @@ public class SendMessageServlet extends HttpServlet {
                 "model": "%s",
                 "messages": [
                 { "role": "system",
-                "content": "상황극에서 답변을 평가하는 AI입니다.\\n- 사용자의 대답에 대해 1~5점으로 점수를 매기고, 구체적이고 유용한 피드백을 제공합니다."
+                "content": "상황극에서 답변을 평가하는 AI입니다.\\n- 사용자의 대답에 대해 점수: X점형태로 피드백: Y의 형태로 점수는 1~5점으로 피드백은 구체적이고 유용하게 제공합니다."
                 },
                 {
                 "role": "user",
