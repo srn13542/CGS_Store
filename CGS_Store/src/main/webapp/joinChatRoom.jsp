@@ -181,8 +181,9 @@ body {
 		</div>
 		<%
 		if (username != null) {
-			for (int i = 1; i <= 5; i++) {
-				String chatRoomName = "ChatRoom " + i;
+			String[] chatRoomNames = { "직장 시뮬레이션", "소개팅 시뮬레이션", "대학 시뮬레이션", "면접 시뮬레이션" };
+			for (int i = 0; i < chatRoomNames.length; i++) {
+				String chatRoomName = chatRoomNames[i];
 				String chatTime = "2024-11-27 12:0" + i; // Example time
 				String chatPartner = "Partner " + i; // Example partner name
 				int views = 10 * i; // Example views
