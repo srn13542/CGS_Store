@@ -15,6 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/4c3bda8fd6.js" crossorigin="anonymous"></script>
 <link rel="icon" href="/CGS_Store/images/favicon.ico"
 	type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -55,10 +56,26 @@ body {
 	transition: transform 0.3s ease;
 }
 
+/* 모달 창 전체를 login.jsp 화면으로 */
+.modal-dialog {
+	height: 80vh;
+}
+
+.modal-content {
+	border: none;
+	border-radius: 50;
+	height: 90%;
+	width: 90%;
+	background: none;
+	box-shadow: none;
+	align-items: center;
+	justify-content: center;
+}
+
 .container {
 	text-align: center;
-    height: 100%; /* 화면 전체를 채우도록 설정 */
-    background: none; /* 배경색 제거 */
+	height: 100%; /* 화면 전체를 채우도록 설정 */
+	background: none; /* 배경색 제거 */
 }
 
 .container p {
@@ -120,6 +137,10 @@ body {
 .carousel-button button:hover {
 	transform: scale(0.9); /* 버튼 크기 확대 */
 }
+
+#loginModal{
+  top: 10vw;
+}
 </style>
 </head>
 <body>
@@ -127,13 +148,18 @@ body {
 	String username = (String) session.getAttribute("username");
 	%>
 	<div class="navbar">
-		<h1><a href="main.jsp" style="color: white; text-decoration: none;">어떡하징 뭐라하징?</a></h1>
-		<button class="sign" data-bs-toggle="modal" data-bs-target="#loginModal">
+		<h1>
+			<a href="main.jsp" style="color: white; text-decoration: none;">어떡하징
+				뭐라하징?</a>
+		</h1>
+		<button class="sign" data-bs-toggle="modal"
+			data-bs-target="#loginModal">
 			<%
 			if (username != null) {
 			%>
 			<!-- 로그아웃 버튼 -->
-			<a href="logout" style="color: white; text-decoration: none;">Sign out</a>
+			<a href="logout" style="color: white; text-decoration: none;">Sign
+				out</a>
 			<%
 			} else {
 			%>
@@ -144,40 +170,48 @@ body {
 			%>
 		</button>
 	</div>
-	
-	<!-- 로그인 모달 -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">로그인</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="loginContent">
-                    <!-- login.jsp 내용이 여기에 로드됩니다 -->
-                    <p>로그인 창을 불러오는 중...</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <script>
-    // 모달이 열릴 때 login.jsp를 로드
-    document.getElementById('loginModal').addEventListener('show.bs.modal', function () {
-        const loginContent = document.getElementById('loginContent');
-        $.ajax({
-            url: "login.jsp", // login.jsp 파일 경로
-            method: "GET",
-            success: function(data) {
-                loginContent.innerHTML = data; // 모달 내용에 login.jsp 로드
-            },
-            error: function() {
-                loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
-            }
-        });
-    });
-    </script>
-    
+	<!-- 로그인 모달 -->
+	<div class="modal fade" id="loginModal" tabindex="-1"
+		aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" id="loginContent">
+					<p>로그인 창을 불러오는 중...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		// 모달이 열릴 때 login.jsp를 로드
+		document
+				.getElementById('loginModal')
+				.addEventListener(
+						'show.bs.modal',
+						function() {
+							const loginContent = document
+									.getElementById('loginContent');
+							$
+									.ajax({
+										url : "login.jsp", // login.jsp 파일 경로
+										method : "GET",
+										success : function(data) {
+											loginContent.innerHTML = data; // login.jsp 로드
+											// 모달 기본 배경 숨기기
+											document
+													.querySelector('.modal-dialog').style.background = "none";
+											document.querySelector('.modal-content').style.background="rgba(0,0,0,0)";
+											document.querySelector('.modal-content').style.border="0px solid #000000";
+										},
+										error : function() {
+											loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
+										}
+									});
+						});
+	</script>
+
 	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-bs-ride="carousel"
 			data-bs-interval="3000">
