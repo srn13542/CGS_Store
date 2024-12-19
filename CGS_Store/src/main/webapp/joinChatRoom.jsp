@@ -17,6 +17,11 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
+<script src="https://kit.fontawesome.com/4c3bda8fd6.js"
+	crossorigin="anonymous"></script>
+<link rel="icon" href="/CGS_Store/images/favicon.ico"
+	type="image/x-icon">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 body {
 	margin: 0;
@@ -37,7 +42,7 @@ body {
 	margin: 0;
 }
 
-.navbar .button {
+.navbar .sign {
 	background-color: #FF6700;
 	color: white;
 	padding: 10px 50px;
@@ -46,12 +51,48 @@ body {
 	cursor: pointer;
 	font-size: 20px;
 	font-weight: bold;
-	text-decoration: none;
+}
+
+.container p {
+	font-size: 20px;
+	line-height: 1.6;
+}
+
+.button {
+	margin-top: auto;
+	padding-bottom: 30px;
+}
+
+.button button {
+	background-color: #004E98;
+	color: white;
+	border: none;
+	padding: 15px 50px;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	cursor: pointer;
 }
 
 .button:hover {
 	transform: scale(0.9);
 	transition: transform 0.3s ease;
+}
+
+/* 모달 창 전체를 login.jsp 화면으로 */
+.modal-dialog {
+	height: 80vh;
+}
+
+.modal-content {
+	border: none;
+	border-radius: 50;
+	height: 90%;
+	width: 90%;
+	background: none;
+	box-shadow: none;
+	align-items: center;
+	justify-content: center;
 }
 
 .filter-sort-container {
@@ -62,7 +103,7 @@ body {
 	margin: 20px auto;
 }
 
-.filter-box{
+.filter-box {
 	background-color: #004E98;
 	color: white;
 	border-radius: 10px;
@@ -141,27 +182,83 @@ body {
 	transform: scale(1.2);
 }
 
-.chatRoomDiv:hover{
-    cursor: pointer;
+.chatRoomDiv:hover {
+	cursor: pointer;
+}
+
+#loginModal {
+	top: 10vw;
 }
 </style>
 </head>
 <body>
+	<%
+	String username = (String) session.getAttribute("username");
+	%>
 	<div class="navbar">
-		 <h1><a href="main.jsp" style="color: white; text-decoration: none;">어떡하징 뭐라하징?</a></h1>
-		<%
-		String username = (String) session.getAttribute("username");
-		if (username != null) {
-		%>
-		<a href="logout.jsp" class="button">Sign out</a>
-		<%
-		} else {
-		%>
-		<a href="login.jsp" class="button">Sign in</a>
-		<%
-		}
-		%>
+		<h1>
+			<a href="main.jsp" style="color: white; text-decoration: none;">어떡하징
+				뭐라하징?</a>
+		</h1>
+		<button class="sign" data-bs-toggle="modal"
+			data-bs-target="#loginModal">
+			<%
+			if (username != null) {
+			%>
+			<!-- 로그아웃 버튼 -->
+			<a href="logout" style="color: white; text-decoration: none;">Sign
+				out</a>
+			<%
+			} else {
+			%>
+			<!-- 로그인 버튼 -->
+			<a style="color: white; text-decoration: none;">Sign in</a>
+			<%
+			}
+			%>
+		</button>
 	</div>
+
+	<!-- 로그인 모달 -->
+	<div class="modal fade" id="loginModal" tabindex="-1"
+		aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" id="loginContent">
+					<p>로그인 창을 불러오는 중...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		// 모달이 열릴 때 login.jsp를 로드
+		document
+				.getElementById('loginModal')
+				.addEventListener(
+						'show.bs.modal',
+						function() {
+							const loginContent = document
+									.getElementById('loginContent');
+							$
+									.ajax({
+										url : "login.jsp", // login.jsp 파일 경로
+										method : "GET",
+										success : function(data) {
+											loginContent.innerHTML = data; // login.jsp 로드
+											// 모달 기본 배경 숨기기
+											document
+													.querySelector('.modal-dialog').style.background = "none";
+											document.querySelector('.modal-content').style.background="rgba(0,0,0,0)";
+											document.querySelector('.modal-content').style.border="0px solid #000000";
+										},
+										error : function() {
+											loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
+										}
+									});
+						});
+	</script>
 
 	<!-- 채팅 리스트 -->
 	<ul class="chat-list" id="chatList">
@@ -183,15 +280,16 @@ body {
 				</select>
 			</div>
 		</div>
-	   <%
+		<%
 		for (int i = 1; i <= 5; i++) {
-				String chatRoomName = "ChatRoom " + i;
-				String chatTime = "2024-11-27 12:0" + i; // Example time
-				String chatPartner = "Partner " + i; // Example partner name
-				int views = 10 * i; // Example views
+			String chatRoomName = "ChatRoom " + i;
+			String chatTime = "2024-11-27 12:0" + i; // Example time
+			String chatPartner = "Partner " + i; // Example partner name
+			int views = 10 * i; // Example views
 		%>
 		<li id="chat-<%=i%>" data-id="<%=i%>">
-			<div onclick="enterChatRoomFunc(<%=i%>,<%=username%>)" class="chatRoomDiv">
+			<div onclick="enterChatRoomFunc(<%=i%>,<%=username%>)"
+				class="chatRoomDiv">
 				<a class="chat-name"><%=chatRoomName%></a>
 				<div class="chat-info">
 					Created on:

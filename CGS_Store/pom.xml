@@ -37,11 +37,18 @@
 			<version>6.0.0</version> <!-- Dynamic Web Module 버전 6.0에 맞춰 사용 -->
 			<scope>provided</scope>
 		</dependency>
+<<<<<<< HEAD
 
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20230227</version>
+=======
+		<dependency> <!-- 이메일 전송하는 의존성 -->
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+>>>>>>> refs/remotes/origin/testBranch3
 		</dependency>
 	</dependencies>
 </project>
