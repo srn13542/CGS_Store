@@ -15,7 +15,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 	crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/4c3bda8fd6.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/4c3bda8fd6.js"
+	crossorigin="anonymous"></script>
 <link rel="icon" href="/CGS_Store/images/favicon.ico"
 	type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -138,8 +139,13 @@ body {
 	transition: transform 0.3s ease;
 }
 
+<<<<<<< HEAD
 #loginModal{
   top: 5vw;
+=======
+#loginModal {
+	top: 10vw;
+>>>>>>> branch 'testBranch' of https://github.com/srn13542/CGS_Store.git
 }
 </style>
 </head>
@@ -183,7 +189,6 @@ body {
 		</div>
 	</div>
 
-
 	<script>
 		// 모달이 열릴 때 login.jsp를 로드
 		document
@@ -202,8 +207,10 @@ body {
 											// 모달 기본 배경 숨기기
 											document
 													.querySelector('.modal-dialog').style.background = "none";
-											document.querySelector('.modal-content').style.background="rgba(0,0,0,0)";
-											document.querySelector('.modal-content').style.border="0px solid #000000";
+											document
+													.querySelector('.modal-content').style.background = "rgba(0,0,0,0)";
+											document
+													.querySelector('.modal-content').style.border = "0px solid #000000";
 										},
 										error : function() {
 											loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
