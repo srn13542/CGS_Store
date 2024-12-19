@@ -24,7 +24,6 @@
 body {
 	margin: 0;
 	font-family: Arial, sans-serif;
-	background-color: #C0C0C0;
 }
 
 .navbar {
@@ -40,7 +39,7 @@ body {
 	margin: 0;
 }
 
-.navbar .sign {
+.navbar .sign-in {
 	background-color: #FF6700;
 	color: white;
 	padding: 10px 50px;
@@ -136,6 +135,7 @@ body {
 
 .carousel-button button:hover {
 	transform: scale(0.9); /* 버튼 크기 확대 */
+	transition: transform 0.3s ease;
 }
 
 #loginModal{
@@ -152,7 +152,7 @@ body {
 			<a href="main.jsp" style="color: white; text-decoration: none;">어떡하징
 				뭐라하징?</a>
 		</h1>
-		<button class="sign" data-bs-toggle="modal"
+		<button class="sign-in" data-bs-toggle="modal"
 			data-bs-target="#loginModal">
 			<%
 			if (username != null) {
