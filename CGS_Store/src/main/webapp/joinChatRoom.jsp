@@ -140,10 +140,6 @@ body {
 .rename-icon:hover {
 	transform: scale(1.2);
 }
-
-.chatRoomDiv:hover{
-    cursor: pointer;
-}
 </style>
 </head>
 <body>
@@ -183,16 +179,18 @@ body {
 				</select>
 			</div>
 		</div>
-	   <%
-		for (int i = 1; i <= 5; i++) {
-				String chatRoomName = "ChatRoom " + i;
+		<%
+		if (username != null) {
+			String[] chatRoomNames = { "직장 시뮬레이션", "소개팅 시뮬레이션", "대학 시뮬레이션", "면접 시뮬레이션" };
+			for (int i = 0; i < chatRoomNames.length; i++) {
+				String chatRoomName = chatRoomNames[i];
 				String chatTime = "2024-11-27 12:0" + i; // Example time
 				String chatPartner = "Partner " + i; // Example partner name
 				int views = 10 * i; // Example views
 		%>
 		<li id="chat-<%=i%>" data-id="<%=i%>">
-			<div onclick="enterChatRoomFunc(<%=i%>,<%=username%>)" class="chatRoomDiv">
-				<a class="chat-name"><%=chatRoomName%></a>
+			<div>
+				<a href="chat?room=<%=chatRoomName%>" class="chat-name"><%=chatRoomName%></a>
 				<div class="chat-info">
 					Created on:
 					<%=chatTime%>
@@ -204,6 +202,11 @@ body {
 			</div> <i class="bi bi-pencil-square rename-icon"
 			onclick="renameChat(<%=i%>)"></i>
 		</li>
+		<%
+		}
+		} else {
+		%>
+		<%@include file="login.jsp"%>
 		<%
 		}
 		%>
@@ -246,9 +249,11 @@ body {
         // Append sorted chats back to the list
         chats.forEach(chat => chatList.appendChild(chat));
     }
+    </script>
 
+	<script>
     function renameChat(chatId) {
-        const chatItem = document.getElementById(`chat-${chatId}`);
+        const chatItem = document.getElementById(chat-${chatId});
         const chatNameElement = chatItem.querySelector('.chat-name');
         const newName = prompt('Enter the new name for the chat:', chatNameElement.textContent);
 
@@ -269,21 +274,6 @@ body {
             });
             */
         }
-    }
-    
-    function enterChatRoomFunc(i, username){
-    	
-    	if (username == null){
-    		alert("먼저 로그인을 해주세요!");
-    	}else{
-    		var imsiStr = 'chat?room=chatRoomName'+i;
-        	location.href= imsiStr;	
-    	}
-    	
-    	//임시로, 이동할 수 있도록 구현:: 개발 마쳤을 시 하단의 코드 삭제 요망
-    	    var imsiStr = 'chat?room=chatRoomName'+i;
-        	location.href= imsiStr;	
-    	//-------
     }
     </script>
 </body>
