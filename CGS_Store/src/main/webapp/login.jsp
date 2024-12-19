@@ -59,8 +59,8 @@
 
 <style>
   .loginFormClass {
-    height: 700px;
-    width: 400px;
+    height: 70vh;
+    width: 30vw;
     background-color: #EBEBEB;
     position: absolute;
     left: 50%;
