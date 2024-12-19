@@ -1,21 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+	rel="stylesheet">
 <script src="https://kit.fontawesome.com/4c3bda8fd6.js"
 	crossorigin="anonymous"></script>
-<link rel="icon" href="/CGS_Store/images/favicon.ico"
-	type="image/x-icon">
-<title>비밀번호 찾기</title>
-
+<title>이메일로 비밀번호 전송</title>
 <style>
 body {
 	margin: 0;
@@ -44,7 +39,7 @@ span {
 	color: red;
 }
 
-#username, #nickname {
+#email {
 	padding: 10px;
 	border: 1px solid #cecece;
 	font-size: 16px;
@@ -53,7 +48,7 @@ span {
 	border-radius: 5px;
 }
 
-#findPasswordBtn {
+#sendEmailBtn {
 	width: 290px;
 	padding: 10px;
 	background-color: #FFFFFF;
@@ -64,7 +59,7 @@ span {
 	border-radius: 5px;
 }
 
-#findPasswordBtn:hover {
+#sendEmailBtn:hover {
 	background-color: #DDDDDD;
 }
 
@@ -101,26 +96,18 @@ p.notice {
 		</h1>
 	</div>
 
-	<!-- 비밀번호 찾기 폼 -->
-	<form action="sendPswd.jsp" method="post">
-
+	<!-- 이메일 입력 폼 -->
+	<form action="sendPassword" method="post">
 		<hr>
+		<p class="notice">비밀번호를 이메일로 전송합니다. 이메일 주소를 입력해주세요.</p>
 		<div>
 			<p class="signupP">
-				아이디 또는 이메일 <span>*</span>
+				이메일 <span>*</span>
 			</p>
-			<input type="text" id="username" name="username"
-				placeholder="아이디 또는 이메일 입력" required>
-		</div>
-		<div>
-			<p class="signupP">
-				닉네임 <span>*</span>
-			</p>
-			<input type="text" id="nickname" name="nickname" placeholder="닉네임 입력"
+			<input type="email" id="email" name="email" placeholder="이메일 입력"
 				required>
 		</div>
-		<input type="submit" value="비밀번호 찾기" id="findPasswordBtn">
-		<p class="notice">비밀번호를 찾기 위해 정확한 정보를 입력해주세요.</p>
+		<input type="submit" value="비밀번호 전송" id="sendEmailBtn">
 	</form>
 </body>
 </html>
