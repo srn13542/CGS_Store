@@ -6,10 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Room</title>
+    <script src="https://kit.fontawesome.com/4c3bda8fd6.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="chatRoom">
-    <h2><button class="backwardBtn">◀</button>Chat Room: <%= session.getAttribute("chatRoom") %></h2>
+    <h2><button class="backwardBtn" onclick="history.back();"><i class="fa-solid fa-arrow-left"></i></button><span>Chat Room: <%= session.getAttribute("chatRoom") %></span></h2>
     <div id="chatBox">
         <%
         //messages 리스트 가져옴
@@ -57,12 +58,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    }
-    h2 {
-        color: white;
-        font-size: 1.5em;
-        margin-bottom: 15px;
-        text-align: center;
     }
     #chatBox {
         width: 100%;
@@ -123,16 +118,26 @@
     #txtSendBtn:hover {
         background-color: #4A5F75;
     }
-    .backwardBtn {
-        position: absolute;
-        left: 15px;
-        font-size: 0.9em;
-        align-items: center;
+    h2 {
+        color: white;
+        font-size: 1.5em;
+        margin-bottom: 15px;
         text-align: center;
-        justify-content: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .backwardBtn {
         background-color: #3A6EA5;
         border: 0;
         cursor: pointer;
+        color: #ffffff;
+        font-size: 1.0em;
+    }
+    h2 span {
+        flex-grow: 1;
+        text-align: center;
     }
 </style>
 </html>
