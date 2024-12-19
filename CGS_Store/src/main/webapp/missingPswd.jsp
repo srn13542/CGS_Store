@@ -104,7 +104,7 @@ p.notice {
 	<!-- 비밀번호 찾기 폼 -->
 	<form action="sendPswd.jsp" method="post">
 
-		<hr>
+		<br>
 		<div>
 			<p class="signupP">
 				아이디 또는 이메일 <span>*</span>

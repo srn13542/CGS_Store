@@ -98,7 +98,7 @@ p.notice {
 
 	<!-- 이메일 입력 폼 -->
 	<form action="sendPassword" method="post">
-		<hr>
+		<br>
 		<p class="notice">비밀번호를 이메일로 전송합니다. 이메일 주소를 입력해주세요.</p>
 		<div>
 			<p class="signupP">
