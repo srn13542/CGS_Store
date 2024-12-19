@@ -107,7 +107,7 @@
 </head>
 <body>
   <div class="loginFormClass">
-    <h2><button class="backwardBtn"><i class="fa-solid fa-arrow-left"></i></button><b>  로그인</b></h2><br />
+    <h2><button class="backwardBtn" onclick="$('#loginModal').modal('hide');"><i class="fa-solid fa-arrow-left"></i></button><b>  로그인</b></h2><br />
     <!-- 제목구역 -->
     <form id="loginForm">
       <div class="miniDiv">
