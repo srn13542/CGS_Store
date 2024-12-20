@@ -12,8 +12,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +31,8 @@ public class ChatServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String room = request.getParameter("room"); // 선택된 방의 이름
+        System.out.println("받은 room 파라미터: " + room);
+
         if (room != null) {
             // 새로운 시뮬레이션 시작 시 데이터 초기화
             request.getSession().setAttribute("evaluationResults", new ArrayList<>());
@@ -45,11 +45,13 @@ public class ChatServlet extends HttpServlet {
             // GPT 질문 생성
             List<String> gptQuestions = generateGPTQuestions(room);
 
+            // 디버깅: 생성된 질문 확인
+            System.out.println("생성된 GPT 질문: " + gptQuestions);
+
             // 세션에 질문 및 메시지 저장
             request.getSession().setAttribute("gptQuestions", gptQuestions);
 
             List<String> messages = new ArrayList<>();
-            List<Integer> scores = new ArrayList<>();
 
             if (!gptQuestions.isEmpty()) {
                 messages.add("<p class='AISend'>" + gptQuestions.get(0) + "</p>");
@@ -69,7 +71,9 @@ public class ChatServlet extends HttpServlet {
      */
     private List<String> generateGPTQuestions(String chatRoomName) {
         String prompt = getPromptForChatRoom(chatRoomName); // 상황에 맞는 프롬프트 생성
-        String jsonInputString = """ 
+        System.out.println("생성된 프롬프트: " + prompt);
+
+        String jsonInputString = """
                 {
                 "model": "%s", 
                 "messages": [ 
@@ -84,7 +88,7 @@ public class ChatServlet extends HttpServlet {
         try {
             // OpenAI API 호출 및 결과 받아오기
             String responseContent = sendPostRequest(jsonInputString);
-            System.out.println("GPT 응답: " + responseContent);
+            System.out.println("GPT API 응답: " + responseContent);
 
             // 응답 JSON 파싱 및 질문 추출
             JSONObject jsonResponse = new JSONObject(responseContent);
@@ -100,6 +104,7 @@ public class ChatServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("GPT 질문 생성 중 오류 발생: " + e.getMessage());
         }
         return questions.isEmpty() ? List.of("GPT 질문을 받을 수 없습니다.") : questions;
     }
