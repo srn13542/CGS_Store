@@ -20,87 +20,7 @@
 <script
 	src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
-<script>
-    // Firebase 설정
-    //여기임 api
-    const firebaseConfig = {
-          apiKey: "AIzaSyDdDSOk6tff59in7-HDYh5sgcv_REKvJVg",            
-          authDomain: "chatgpts-6e15f.firebaseapp.com",
-            databaseURL: "https://chatgpts-6e15f-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "chatgpts-6e15f",
-            storageBucket: "chatgpts-6e15f.firebasestorage.app",
-            messagingSenderId: "886550654757",
-            appId: "1:886550654757:web:c63d114a77069a756f34cc",
-            measurementId: "G-3CL8ZEJW3L"
-        };
-    // Firebase 초기화
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-      console.log("Firebase initialized successfully");
-    } else {
-      console.log("Firebase already initialized.");
-    }
-
-    // 로그인 함수
-    function loginUser(username, password) {
-  console.log(`Logging in with Username: ${username}, Password: ${password}`);
-  
-  firebase.database().ref('users/' + username).once('value')
-    .then(snapshot => {
-      const userData = snapshot.val();
-
-      if (userData === null) {
-        console.error('No user data found for username:', username);
-        alert('로그인 실패: 사용자를 찾을 수 없습니다.');
-      } else if (userData.password === password) {
-        console.log('Login successful.');
-        $.ajax({
-          url: "setSession.jsp",
-          method: "POST",
-          data: {username: username},
-          success: function(response) {
-            if(response.trim() === "success") {
-              alert('로그인 성공!');
-              window.location.href = "joinChatRoom.jsp";
-            } else {
-              alert("로그인 실패: " + response);
-            }
-          },
-          error: function(xhr, status, error) {
-            console.error("AJAX 요청 실패", status, error);
-            alert("서버 요청 실패!");
-          }
-        });
-      } else {
-        console.error('Login failed: Invalid password.');
-        alert('로그인 실패: 유효하지 않은 비밀번호입니다.');
-      }
-    })
-    .catch(error => {
-      console.error('Error logging in:', error);
-      alert('로그인 중 오류가 발생했습니다.');
-    });
-}
-
-
-    // 폼 제출 이벤트
-    document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('loginForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        if (!username || !password) {
-          alert('사용자 이름과 비밀번호를 입력해주세요.');
-          return;
-        }
-
-        loginUser(username, password);
-      });
-    });
-  </script>
-
+<script src="login.js"></script>
 <style>
 .loginFormClass {
 	height: 70vh;
@@ -111,7 +31,7 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 	padding: 30px;
-	border-radius: 16px;
+	border-radius: 16px
 	margin: 10px;
 }
 
@@ -157,7 +77,7 @@ div input {
 <body>
 	<div class="loginFormClass">
 		<h2>
-			<button class="backwardBtn" onclick="$('#loginModal').modal('hide');">
+			<button class="backwardBtn">
 				<i class="fa-solid fa-arrow-left"></i>
 			</button>
 			<b> 로그인</b>

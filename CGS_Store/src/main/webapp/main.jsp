@@ -139,13 +139,10 @@ body {
 	transition: transform 0.3s ease;
 }
 
-<<<<<<< HEAD
-#loginModal{
-  top: 5vw;
-=======
+<<<<<<<
+HEAD
 #loginModal {
-	top: 10vw;
->>>>>>> branch 'testBranch' of https://github.com/srn13542/CGS_Store.git
+	top: 5vw;
 }
 </style>
 </head>
@@ -190,33 +187,43 @@ body {
 	</div>
 
 	<script>
-		// 모달이 열릴 때 login.jsp를 로드
-		document
-				.getElementById('loginModal')
-				.addEventListener(
-						'show.bs.modal',
-						function() {
-							const loginContent = document
-									.getElementById('loginContent');
-							$
-									.ajax({
-										url : "login.jsp", // login.jsp 파일 경로
-										method : "GET",
-										success : function(data) {
-											loginContent.innerHTML = data; // login.jsp 로드
-											// 모달 기본 배경 숨기기
-											document
-													.querySelector('.modal-dialog').style.background = "none";
-											document
-													.querySelector('.modal-content').style.background = "rgba(0,0,0,0)";
-											document
-													.querySelector('.modal-content').style.border = "0px solid #000000";
-										},
-										error : function() {
-											loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
-										}
-									});
-						});
+	// 모달이 열릴 때 login.jsp를 로드
+	document.getElementById('loginModal').addEventListener('show.bs.modal', function () {
+	    const loginContent = document.getElementById('loginContent');
+	    
+	    $.ajax({
+	        url: "login.jsp", // login.jsp 파일 경로
+	        method: "GET",
+	        success: function (data) {
+	            // login.jsp의 HTML 삽입
+	            loginContent.innerHTML = data;
+
+	            // 스크립트 태그 수동 실행
+	            const tempDiv = document.createElement('div');
+	            tempDiv.innerHTML = data;
+
+	            const scripts = tempDiv.querySelectorAll("script");
+	            scripts.forEach(script => {
+	                const newScript = document.createElement("script");
+	                if (script.src) {
+	                    newScript.src = script.src; // 외부 스크립트 파일 실행
+	                } else {
+	                    newScript.textContent = script.textContent; // 인라인 스크립트 실행
+	                }
+	                document.body.appendChild(newScript); // 스크립트를 body에 추가
+	            });
+
+	            // 모달 디자인 조정 (옵션)
+	            document.querySelector('.modal-dialog').style.background = "none";
+	            document.querySelector('.modal-content').style.background = "rgba(0,0,0,0)";
+	            document.querySelector('.modal-content').style.border = "0px solid #000000";
+	        },
+	        error: function () {
+	            loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
+	        }
+	    });
+	});
+
 	</script>
 
 	<div class="container">
