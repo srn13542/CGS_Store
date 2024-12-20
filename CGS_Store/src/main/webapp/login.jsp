@@ -1,61 +1,85 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://kit.fontawesome.com/4c3bda8fd6.js" crossorigin="anonymous"></script>
-<link rel="icon" href="/CGS_Store/images/favicon.ico" type="image/x-icon">
-<!-- <title>Insert title here</title> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/4c3bda8fd6.js" crossorigin="anonymous"></script>
 
-<!-- 파이어베이스 설치 코드 -->
-<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js"></script>
+  <!-- Firebase UMD 버전 -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
-<script>
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDdDSOk6tff59in7-HDYh5sgcv_REKvJVg",
-    authDomain: "chatgpts-6e15f.firebaseapp.com",
-    databaseURL: "https://chatgpts-6e15f-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "chatgpts-6e15f",
-    storageBucket: "chatgpts-6e15f.firebasestorage.app",
-    messagingSenderId: "886550654757",
-    appId: "1:886550654757:web:c63d114a77069a756f34cc",
-    measurementId: "G-3CL8ZEJW3L"
-  };
+  <script>
+    // Firebase 설정
+    //여기임 api
+    // Firebase 초기화
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+      console.log("Firebase initialized successfully");
+    } else {
+      console.log("Firebase already initialized.");
+    }
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const analytics = firebase.analytics();
-  const database = firebase.database();
+    // 로그인 함수
+    async function loginUser(username, password) {
+      try {
+        console.log(`Logging in with Username: ${username}, Password: ${password}`);
+        
+        const snapshot = await firebase.database().ref('users/' + username).once('value');
+        const userData = snapshot.val();
 
-  console.log('Firebase initialized:', firebase.app());
-  console.log('Database initialized:', database);
+        if (userData === null) {
+          console.error('No user data found for username:', username);
+          alert('로그인 실패: 사용자를 찾을 수 없습니다.');
+        } else if (userData.password === password) {
+          console.log('Login successful.');
+		  window.location.href = "joinChatRoom.jsp";
+          $.ajax({
+        	url: "setSession.jsp",
+        	method: "POST",
+        	data: {username: username},
+        	success: function(response){
+        		if(response.trim()==="success"){
+        	        alert('로그인 성공!');
+        			window.location.href = "joinChatRoom.jsp";
+        		} else{
+        			alert("로그인 실패: "+ response);
+        		}
+        	},
+        	error: function(xhr, status, error){
+        		console.error("AJAX 요청 실패", status, error);
+        		alert("서버 요청 실패!");
+        	}
+          })
+        } else {
+          console.error('Login failed: Invalid password.');
+          alert('로그인 실패: 유효하지 않은 비밀번호입니다.');
+        }
+      } catch (error) {
+        console.error('Error logging in:', error);
+        alert('로그인 중 오류가 발생했습니다.');
+      }
+    }
 
-  // 데이터 쓰기 함수
-  function writeInitialData() {
-    const username = "initialUser";
-    const password = "initialPassword";
-    console.log('Attempting to write initial data...');
-    console.log(`Username: ${username}, Password: ${password}`);
-    database.ref('users/' + username).set({
-      username: username,
-      password: password
-    }).then(() => {
-      console.log('Initial user data saved successfully.');
-    }).catch((error) => {
-      console.error('Error saving initial user data:', error);
+    // 폼 제출 이벤트
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (!username || !password) {
+          alert('사용자 이름과 비밀번호를 입력해주세요.');
+          return;
+        }
+
+        loginUser(username, password);
+      });
     });
-  }
-
-  // 초기화 후 데이터 저장 함수 호출
-  window.onload = function() {
-    writeInitialData();
-  };
-</script>
+  </script>
 
 <style>
   .loginFormClass {
@@ -124,4 +148,3 @@
   </div>
 </body>
 </html>
-
