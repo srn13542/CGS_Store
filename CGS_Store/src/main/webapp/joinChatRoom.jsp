@@ -99,7 +99,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 80%;
+	width: 100%;
 	margin: 20px auto;
 }
 
@@ -194,6 +194,7 @@ body {
 <body>
 	<%
 	String username = (String) session.getAttribute("username");
+	String[] chatRoomNames = {"직장 시뮬레이션", "소개팅 시뮬레이션", "대학 시뮬레이션", "면접 시뮬레이션"};
 	%>
 	<div class="navbar">
 		<h1>
@@ -233,31 +234,43 @@ body {
 
 
 	<script>
-		// 모달이 열릴 때 login.jsp를 로드
-		document
-				.getElementById('loginModal')
-				.addEventListener(
-						'show.bs.modal',
-						function() {
-							const loginContent = document
-									.getElementById('loginContent');
-							$
-									.ajax({
-										url : "login.jsp", // login.jsp 파일 경로
-										method : "GET",
-										success : function(data) {
-											loginContent.innerHTML = data; // login.jsp 로드
-											// 모달 기본 배경 숨기기
-											document
-													.querySelector('.modal-dialog').style.background = "none";
-											document.querySelector('.modal-content').style.background="rgba(0,0,0,0)";
-											document.querySelector('.modal-content').style.border="0px solid #000000";
-										},
-										error : function() {
-											loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
-										}
-									});
-						});
+	// 모달이 열릴 때 login.jsp를 로드
+	document.getElementById('loginModal').addEventListener('show.bs.modal', function () {
+	    const loginContent = document.getElementById('loginContent');
+	    
+	    $.ajax({
+	        url: "login.jsp", // login.jsp 파일 경로
+	        method: "GET",
+	        success: function (data) {
+	            // login.jsp의 HTML 삽입
+	            loginContent.innerHTML = data;
+
+	            // 스크립트 태그 수동 실행
+	            const tempDiv = document.createElement('div');
+	            tempDiv.innerHTML = data;
+
+	            const scripts = tempDiv.querySelectorAll("script");
+	            scripts.forEach(script => {
+	                const newScript = document.createElement("script");
+	                if (script.src) {
+	                    newScript.src = script.src; // 외부 스크립트 파일 실행
+	                } else {
+	                    newScript.textContent = script.textContent; // 인라인 스크립트 실행
+	                }
+	                document.body.appendChild(newScript); // 스크립트를 body에 추가
+	            });
+
+	            // 모달 디자인 조정 (옵션)
+	            document.querySelector('.modal-dialog').style.background = "none";
+	            document.querySelector('.modal-content').style.background = "rgba(0,0,0,0)";
+	            document.querySelector('.modal-content').style.border = "0px solid #000000";
+	        },
+	        error: function () {
+	            loginContent.innerHTML = "<p>로그인 창을 불러오는 데 실패했습니다.</p>";
+	        }
+	    });
+	});
+
 	</script>
 
 	<!-- 채팅 리스트 -->
@@ -268,7 +281,13 @@ body {
 				<label for="chatFilter">Filter by:</label> <select id="chatFilter"
 					onchange="filterChats()">
 					<option value="all">All Chats</option>
-					<option value="custom">Custom Filter</option>
+					<%
+					for (String room : chatRoomNames) {
+					%>
+					<option value="<%=room%>"><%=room%></option>
+					<%
+					}
+					%>
 				</select>
 			</div>
 			<!-- Sort Box -->
@@ -280,12 +299,14 @@ body {
 				</select>
 			</div>
 		</div>
+
+
 		<%
-		for (int i = 1; i <= 5; i++) {
-			String chatRoomName = "ChatRoom " + i;
-			String chatTime = "2024-11-27 12:0" + i; // Example time
-			String chatPartner = "Partner " + i; // Example partner name
-			int views = 10 * i; // Example views
+		for (int i = 0; i < chatRoomNames.length; i++) {
+			String chatRoomName = chatRoomNames[i];
+			String chatTime = "2024-11-27 12:0" + i; // 예시 시간
+			String chatPartner = "Partner " + (i + 1);
+			int views = 10 * (i + 1);
 		%>
 		<li id="chat-<%=i%>" data-id="<%=i%>">
 			<div onclick="enterChatRoomFunc(<%=i%>,<%=username%>)"
@@ -309,41 +330,34 @@ body {
 	<script>
 	function filterChats() {
 	    const filter = document.getElementById('chatFilter').value;
-	    const chatList = document.getElementById('chatList');
-	    const chats = chatList.getElementsByTagName('li');
-	    
-	    for (let chat of chats) {
-	        if (filter === 'custom') {
-	            // Example custom filter (show only ChatRoom 3)
-	            if (!chat.innerHTML.includes('ChatRoom 3')) {
-	                chat.style.display = 'none';
-	            } else {
-	                chat.style.display = 'flex'; // 항상 flex 레이아웃 유지
-	            }
+	    const chats = document.querySelectorAll('.chat-list li');
+
+	    chats.forEach(chat => {
+	        const chatName = chat.querySelector('.chat-name').textContent;
+	        if (filter === 'all' || chatName.includes(filter)) {
+	            chat.style.display = 'flex';
 	        } else {
-	            chat.style.display = 'flex'; // 모든 요소를 flex로 표시
+	            chat.style.display = 'none';
 	        }
-	    }
+	    });
 	}
 
 
-    function sortChats() {
-        const sort = document.getElementById('chatSort').value;
-        const chatList = document.getElementById('chatList');
-        const chats = Array.from(chatList.getElementsByTagName('li'));
+	function sortChats() {
+	    const sort = document.getElementById('chatSort').value;
+	    const chatList = document.getElementById('chatList');
+	    const chats = Array.from(chatList.querySelectorAll('li'));
 
-        chats.sort((a, b) => {
-            if (sort === 'time') {
-                return new Date(a.getAttribute('data-time')) - new Date(b.getAttribute('data-time'));
-            } else if (sort === 'views') {
-                return b.getAttribute('data-views') - a.getAttribute('data-views');
-            }
-            return 0;
-        });
+	    chats.sort((a, b) => {
+	        if (sort === 'time') {
+	            return new Date(a.dataset.time) - new Date(b.dataset.time);
+	        } else if (sort === 'views') {
+	            return b.dataset.views - a.dataset.views;
+	        }
+	    });
 
-        // Append sorted chats back to the list
-        chats.forEach(chat => chatList.appendChild(chat));
-    }
+	    chats.forEach(chat => chatList.appendChild(chat));
+	}
 
     function renameChat(chatId) {
         const chatItem = document.getElementById(`chat-${chatId}`);
