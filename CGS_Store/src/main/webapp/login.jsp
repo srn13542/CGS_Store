@@ -14,6 +14,16 @@
   <script>
     // Firebase 설정
     //여기임 api
+    const firebaseConfig = {
+    		apiKey: "AIzaSyDdDSOk6tff59in7-HDYh5sgcv_REKvJVg",            
+    		authDomain: "chatgpts-6e15f.firebaseapp.com",
+            databaseURL: "https://chatgpts-6e15f-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "chatgpts-6e15f",
+            storageBucket: "chatgpts-6e15f.firebasestorage.app",
+            messagingSenderId: "886550654757",
+            appId: "1:886550654757:web:c63d114a77069a756f34cc",
+            measurementId: "G-3CL8ZEJW3L"
+        };
     // Firebase 초기화
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
@@ -35,7 +45,6 @@
           alert('로그인 실패: 사용자를 찾을 수 없습니다.');
         } else if (userData.password === password) {
           console.log('Login successful.');
-		  window.location.href = "joinChatRoom.jsp";
           $.ajax({
         	url: "setSession.jsp",
         	method: "POST",
