@@ -21,7 +21,7 @@
     <!-- 절대 경로를 사용하여 서블릿과 정확히 연결 -->
     <form action="<%= request.getContextPath() %>/signup" method="post">
         <div class="form-group">
-            <p class="signupP">닉네임 <span id="nameSpan">*</span></p>
+            <p class="signupP">이름 <span id="nameSpan">*</span></p>
                 <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required><br/>
                 <!-- <span class="explainSpan">만약 설명이 필요하다면 이렇게</span> -->
                 

@@ -57,6 +57,8 @@ public class AdminSignupServlet extends HttpServlet {
                     response.sendRedirect("adminRegister.jsp?error=insertFailed");
                 }
             }
+            
+            response.sendRedirect("main.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("adminRegister.jsp?error=systemError");
