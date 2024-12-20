@@ -64,7 +64,8 @@ span {
 }
 
 #sendEmailBtn:hover {
-	background-color: #DDDDDD;
+	transform: scale(0.9); /* 버튼 크기 확대 */
+	transition: transform 0.3s ease;
 }
 
 .navbar {
