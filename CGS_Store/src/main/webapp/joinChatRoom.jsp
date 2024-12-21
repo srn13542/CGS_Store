@@ -113,6 +113,13 @@ body {
 	font-size: 14px;
 	color: #555555;
 }
+
+#loginFirst {
+    height: 20vh;
+    width: 30vw;
+    text-align: center;
+    justify-content: center;
+}
 </style>
 </head>
 <body>
@@ -162,9 +169,9 @@ body {
 		}
 		} else {
 		%>
-		<div class="chat-box">
+		<div class="chat-box" id="loginFirst">
 			<p>
-				로그인을 하시면 채팅방을 볼 수 있습니다. <a href="login.jsp">로그인</a>
+				로그인을 하시면 채팅방을 볼 수 있습니다. <br /><a href="login.jsp">로그인</a>
 			</p>
 		</div>
 		<%
